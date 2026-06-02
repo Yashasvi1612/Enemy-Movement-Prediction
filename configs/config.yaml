@@ -1,0 +1,69 @@
+# ─────────────────────────────────────────────
+#  Defense Surveillance System — Main Config
+# ─────────────────────────────────────────────
+
+# ── Paths ──────────────────────────────────────
+paths:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  models: "models"
+  outputs: "outputs"
+
+# ── Detection (YOLOv8) ─────────────────────────
+detection:
+  model_size: "yolov8n.pt"          # n=nano, s=small, m=medium (start with nano)
+  confidence_threshold: 0.4
+  iou_threshold: 0.5
+  classes: [0, 2, 3, 5, 7]         # COCO: person, car, motorbike, bus, truck
+  device: "cpu"                     # change to "cuda" if GPU available
+  input_size: 640
+
+# ── Tracking (DeepSORT) ────────────────────────
+tracking:
+  max_age: 30                       # frames before track is deleted
+  min_hits: 3                       # frames before track is confirmed
+  iou_threshold: 0.3
+  max_cosine_distance: 0.4
+
+# ── Trajectory ─────────────────────────────────
+trajectory:
+  min_length: 8                     # minimum points to form a valid trajectory
+  obs_len: 8                        # observed timesteps fed to model
+  pred_len: 12                      # future timesteps to predict
+  skip: 1                           # frame skip between trajectory points
+
+# ── Transformer Prediction Model ───────────────
+model:
+  d_model: 64                       # embedding dimension
+  nhead: 8                          # attention heads
+  num_encoder_layers: 3
+  num_decoder_layers: 3
+  dim_feedforward: 256
+  dropout: 0.1
+  learning_rate: 0.001
+  batch_size: 64
+  epochs: 100
+  checkpoint_every: 10
+
+# ── Threat Analysis ────────────────────────────
+threat:
+  loitering_threshold_seconds: 15   # flag if object stays in same area
+  loitering_radius_pixels: 50       # "same area" radius
+  speed_anomaly_multiplier: 2.5     # flag if speed > 2.5x average
+  zone_check_enabled: true
+  restricted_zones: []              # list of polygon coords; set at runtime
+
+# ── Dashboard ──────────────────────────────────
+dashboard:
+  port: 8501
+  update_interval_ms: 100
+  show_trajectories: true
+  show_predictions: true
+  show_heatmap: true
+  alert_sound: false
+
+# ── Logging ────────────────────────────────────
+logging:
+  level: "INFO"
+  save_logs: true
+  log_file: "outputs/logs/system.log"

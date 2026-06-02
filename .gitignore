@@ -1,0 +1,34 @@
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Model weights (too large for git)
+models/
+*.pt
+*.pth
+
+# Data files (keep test.mp4, ignore everything else in raw)
+data/raw/*
+!data/raw/test.mp4
+
+# Outputs
+outputs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
