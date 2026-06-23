@@ -8,9 +8,10 @@ __pycache__/
 *.pyd
 
 # Model weights (too large for git)
-models/
-*.pt
 *.pth
+models/**
+!models/predictor/
+!models/predictor/checkpoint_best.pt
 
 # Data files (keep test.mp4, ignore everything else in raw)
 data/raw/*
