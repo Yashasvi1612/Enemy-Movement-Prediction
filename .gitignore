@@ -14,7 +14,7 @@ models/
 
 # Data files (keep test.mp4, ignore everything else in raw)
 data/raw/*
-!data/raw/test.mp4
+!data/raw/test1.mp4
 
 # Outputs
 outputs/
